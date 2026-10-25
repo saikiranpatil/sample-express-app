@@ -9,7 +9,7 @@ const app = express()
 app.use(express.json());
 
 app.get("/", (req, res) => {
-    return res.status(200).json({ success: true, message: "all okay from express server!" })
+    return res.status(200).json({ success: true, message: "all okay from express server! 😁" })
 })
 
 app.get("/health", (req, res) => {

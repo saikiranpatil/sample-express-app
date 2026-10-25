@@ -11,6 +11,8 @@ sudo dnf install -y docker
 sudo systemctl start docker
 sudo systemctl enable docker
 
+git clone https://github.com/saikiranpatil/sample-express-app.git
+
 # build image of current project
 sudo docker build -t phase-6 .
 
