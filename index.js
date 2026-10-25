@@ -12,6 +12,10 @@ app.get("/", (req, res) => {
     return res.status(200).json({ success: true, message: "all okay from express server! 😁" })
 })
 
+app.get("/new", (req, res) => {
+    return res.status(200).json({ success: true, message: "this is new change 👉👉🫷👨🏻‍💼" })
+})
+
 app.get("/health", (req, res) => {
     return res.status(200).json({ success: true, message: "health all okay!" })
 })
