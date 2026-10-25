@@ -1,25 +1,57 @@
 name: deploy to EC2
 
-on: 
+on:
   push:
     branches:
       - main
+
+env:
+  APP_DIR: ~/sample-express-app
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout code
-        uses: actions/checkout@v4
-      
-      - name: deploy via SSH
+      - name: pull latest code
         uses: appleboy/ssh-action@v1.0.3
-        with: 
+        with:
           host: ${{ secrets.SSH_HOST }}
           username: ec2-user
           key: ${{ secrets.SSH_KEY }}
+          script_stop: true
           script: |
-            cd ~/sample-express-app
+            cd ${{ env.APP_DIR }}
             git pull
+
+      - name: stop running containers
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ec2-user
+          key: ${{ secrets.SSH_KEY }}
+          script_stop: true
+          script: |
+            cd ${{ env.APP_DIR }}
             sudo docker compose down
+
+      - name: build and start containers
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ec2-user
+          key: ${{ secrets.SSH_KEY }}
+          script_stop: true
+          script: |
+            cd ${{ env.APP_DIR }}
             sudo docker compose up -d --build
+
+      - name: verify deployment
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ec2-user
+          key: ${{ secrets.SSH_KEY }}
+          script_stop: true
+          script: |
+            cd ${{ env.APP_DIR }}
+            sudo docker compose ps
