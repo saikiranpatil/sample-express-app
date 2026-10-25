@@ -9,11 +9,11 @@ const app = express()
 app.use(express.json());
 
 app.get("/", (req, res) => {
-    return res.status(200).json({ success: true, message: "all okay from express server! 😁" })
+    return res.status(200).json({ success: true, message: "all okay from express server! new change 👉 😁" })
 })
 
 app.get("/new", (req, res) => {
-    return res.status(200).json({ success: true, message: "this is new change 👉👉🫷👨🏻‍💼" })
+    return res.status(200).json({ success: true, message: "this is new change 👉🫷👨🏻‍💼" })
 })
 
 app.get("/health", (req, res) => {
