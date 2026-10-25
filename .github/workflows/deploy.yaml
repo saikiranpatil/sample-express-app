@@ -10,14 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
       
       - name: deploy via SSH
-        uses: appleboy/ssh-action@v1
+        uses: appleboy/ssh-action@v1.0.3
         with: 
-          host: ${{secrets.SSH_HOST}}
-          username: ubuntu
-          key: ${{secrets.SSH_KEY}}
+          host: ${{ secrets.SSH_HOST }}
+          username: ec2-user
+          key: ${{ secrets.SSH_KEY }}
           script: |
             cd ~/phase-6
             git pull
